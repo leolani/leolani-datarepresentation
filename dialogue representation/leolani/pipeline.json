@@ -1,0 +1,82 @@
+{
+  "channels": [
+    {
+      "name": "frontal camera",
+      "datafile": "vision.json",
+      "modality": "image",
+      "datatype": ".png",
+      "source": "frontal camera"
+    },
+    {
+      "name": "microphone",
+      "datafile": "audio.json",
+      "modality": "audio",
+      "datatype": ".wav",
+      "source": "microphone"
+    },
+    {
+      "name": "location",
+      "datafile": "location.json",
+      "modality": "location",
+      "datatype": "json",
+      "source": "GPS"
+    }
+  ],
+  "modules": [
+    {
+      "name": "Voice Activity Detector (VAD)",
+      "datafile": "speech.json",
+      "input": ["audio"],
+      "output": "speech",
+      "datatype": ".wav",
+      "source": "webtrtc"
+    },
+    {
+      "name": "Speech to Text (STT)",
+      "datafile": "utterances.json",
+      "input": ["speech"],
+      "output": "text",
+      "datatype": "str",
+      "source": "GoogleAPI"
+    },
+    {
+      "name": "Natural language processing (NLP)",
+      "datafile": "nlp.json",
+      "input": ["text"],
+      "output": "triple",
+      "datatype": "json",
+      "source": "leolani"
+    },
+    {
+      "name": "Perspective extraction",
+      "datafile": "perspectives.json",
+      "input": ["text"],
+      "output": "perspective",
+      "datatype": "json",
+      "source": "leolani"
+    },
+    {
+      "name": "Context",
+      "datafile": "context.json",
+      "input": ["location", "datetime", "object detection", "face detection"],
+      "output": "context",
+      "datatype": "json",
+      "source": "leolani"
+    },
+    {
+      "name": "Brain",
+      "datafile": "triples.json",
+      "input": ["context", "triple", "perspective"],
+      "output": "triple",
+      "datatype": "rdf",
+      "source": "leolani"
+    }
+  ]
+}
+
+// context creation, track of utterance and speaker and chat etc
+// identity reference perspective = text to
+// triple (nerc+RE) ,
+// text contains speaker and chat info?
+// perspective ( emotion , factuality, etc)
+// close to naf

@@ -1,0 +1,38 @@
+{
+  "events": [
+    {
+      "id": "utterance1",
+      "output_value": "i said something",
+      "confidence": 0.70,
+      "start_timestamp": 23,
+      "end_timestamp": 23,
+      "channel_state": "coreference chain",
+      "extracted from": "video1",
+      "relations": [
+        {
+          "overlapping": ["utterance2"],
+          "contained": [],
+          "precedes": [],
+
+        }
+      ]
+    },
+    {
+      "id": "utterance2",
+      "output_value": "i said something too",
+      "confidence": 0.70,
+      "start_timestamp": 23,
+      "end_timestamp": 23,
+      "channel_state": "coreference chain",
+      "extracted from": "video1",
+      "relations": [
+        {
+          "overlapping": ["utterance1"],
+          "contained": [],
+          "precedes": [],
+
+        }
+      ]
+    }
+  ]
+}

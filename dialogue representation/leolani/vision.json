@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "id": "video1",
+      "output_value": "/path_to_video/video1.mp4",
+      "confidence": 0.70,
+      "start_timestamp": 23,
+      "end_timestamp": 23,
+      "extracted from": "",
+      "relations": [
+        {
+          "overlapping": ["utterance2"],
+          "contained": [],
+          "precedes": [],
+
+        }
+      ]
+    }
+  ]
+}

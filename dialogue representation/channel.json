@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "id": "TYPE_NUMBER",
+      "output_value": "VALUE OR PATH TO FILE",
+      "confidence": "VALUE BETWEEN 0-1",
+      "start_timestamp": "DATETIME",
+      "end_timestamp": "DATETIME",
+      "channel_state": "IF THE OUTPUT OF THIS MODULE DEPENDS ON SOME INTERNAL STATE (MEMORY)< THIS IS WHERE WE STORE THIS",
+      "extracted from": "ID OF EVENT ON PREVIOUS CHANNEL/MODULE",
+      "relations": [
+        {
+          "overlapping": ["ID OF EVENT ON THIS CHANNEL/MODULE"],
+          "contained": ["ID OF EVENT ON THIS CHANNEL/MODULE"],
+          "precedes": ["ID OF EVENT ON THIS CHANNEL/MODULE"],
+
+        }
+      ]
+    }
+  ]
+}

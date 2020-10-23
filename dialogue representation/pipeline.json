@@ -1,0 +1,38 @@
+{
+  "channels": [
+    {
+      "name": "NAME OF CHANNEL",
+      "datafile": "NAME OF JSON FILE WITH RAW DATA",
+      "modality": "CHANNEL",
+      "datatype": "TYPE OF DATA, IF IT STARTS WITH A DOT (.) THEN IT IS A FILE EXTENSION",
+      "source": "PROVENANCE OF PROCESSING TOOL USED TO CREATE THIS DATA"
+    }
+  ],
+  "modules": [
+    {
+      "name": "NAME OF MODULE",
+      "datafile": null,
+      "input": ["LIST OF CHANNELS REQUIRED FOR THIS MODULE"],
+      "output": "CHANNEL PRODUCED BY THIS MODULE",
+      "datatype": "TYPE OF DATA, IF IT STARTS WITH A DOT (.) THEN IT IS A FILE EXTENSION",
+      "source": null
+    },
+    {
+      "name": "NAME OF MODULE",
+      "datafile": "NAME OF JSON FILE WITH PROCESSED DATA",
+      "input": ["LIST OF CHANNELS REQUIRED FOR THIS MODULE"],
+      "output": "CHANNEL PRODUCED BY THIS MODULE",
+      "datatype": "TYPE OF DATA, IF IT STARTS WITH A DOT (.) THEN IT IS A FILE EXTENSION",
+      "source": "PROVENANCE OF PROCESSING TOOL USED TO CREATE THIS DATA"
+    },
+    {
+      "name": "NAME OF MODULE",
+      "datafile": "NAME OF JSON FILE WITH PROCESSED DATA",
+      "input": ["LIST OF CHANNELS REQUIRED FOR THIS MODULE"],
+      "output": "CHANNEL PRODUCED BY THIS MODULE",
+      "datatype": "TYPE OF DATA, IF IT STARTS WITH A DOT (.) THEN IT IS A FILE EXTENSION",
+      "source": "PROVENANCE OF PROCESSING TOOL USED TO CREATE THIS DATA",
+      "state_required": "boolean"
+    }
+  ]
+}
