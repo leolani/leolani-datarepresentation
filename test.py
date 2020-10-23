@@ -36,24 +36,25 @@ def transform_capsule(capsule):
     return utt
 
 
-capsule_knows = {
-    "utterance": "dimitris knows piek",
-    "subject": {
-        "label": "dimitris",
-        "type": "person"
-    },
-    "predicate": {
-        "type": "knows"
-    },
-    "object": {
-        "label": "piek",
-        "type": "person"
-    },
-    "author": "tom",
-    "turn": 1,
-    "position": "0-25",
-    "date": date(2019, 1, 24)
-}
-
 if __name__ == "__main__":
-    capsule = transform_capsule()
+
+    capsule_knows = {
+        "utterance": "Thomas knows piek",
+        "subject": {
+            "label": "thomas",
+            "type": "person"
+        },
+        "predicate": {
+            "type": "knows"
+        },
+        "object": {
+            "label": "piek",
+            "type": "person"
+        },
+        "author": "tae",
+        "turn": 1,
+        "position": "0-25",
+        "date": date(2019, 1, 24)
+    }
+
+    utterance = transform_capsule(capsule_knows)
