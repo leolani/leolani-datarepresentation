@@ -1,7 +1,16 @@
 from random import getrandbits
+from datetime import datetime
 from typing import List
-import json
+import logging
 import enum
+
+from nltk import pos_tag
+
+from utils import casefold_text
+from representation import Triple, Perspective
+from rdf_builder import RdfBuilder
+
+logger = logging.getLogger(__name__)
 
 
 class Time(enum.Enum):
@@ -222,12 +231,9 @@ class Utterance(object):
         self._me = me
 
         self._hypothesis = self._choose_hypothesis(hypotheses)
-
         self._tokens = self._clean(self._tokenize(self.transcript))
 
-        # TODO: Optimize: takes 2.6 seconds now! Should be < 1 second!?
-        self._parser = None if self.me else Parser(self)
-        # TODO analyze sets triple, perspective and type, but currently is not called on constructor
+        self._parser = None
         self._type = None
         self._triple = None
         self._perspective = None
@@ -376,31 +382,6 @@ class Utterance(object):
         """
         return self._parser
 
-    def analyze(self):
-        """
-        Determines the type of utterance, extracts the RDF triple and perspective attaching them to the last utterance
-        Parameters
-        ----------
-        chat
-
-        Returns
-        -------
-
-        """
-        analyzer = Analyzer.analyze(self._chat)
-
-        if not analyzer:
-            return "I cannot parse your input"
-
-        for el in ["subject", "predicate", "complement"]:
-            Analyzer.LOG.info(
-                "RDF {:>10}: {}".format(el, json.dumps(analyzer.triple[el], sort_keys=True, separators=(', ', ': '))))
-
-        self.pack_triple(analyzer.triple, analyzer.utterance_type)
-
-        if analyzer.utterance_type == UtteranceType.STATEMENT:
-            self.pack_perspective(analyzer.perspective)
-
     def pack_triple(self, rdf, utterance_type):
         """
         Sets utterance type, the extracted triple and (in future) the perspective
@@ -459,48 +440,6 @@ class Utterance(object):
 
     def _choose_hypothesis(self, hypotheses):
         return sorted(self._patch_names(hypotheses), key=lambda hypothesis: hypothesis.confidence, reverse=True)[0]
-
-    def _patch_names(self, hypotheses):
-        if not self.me:
-
-            names = []
-
-            # Patch Transcripts with Names
-            for hypothesis in hypotheses:
-
-                transcript = []
-
-                for word in hypothesis.transcript.split():
-                    name = Utterance._get_closest_name(word, self.context.friends)
-
-                    if name:
-                        names.append(name)
-                        transcript.append(name)
-                    else:
-                        transcript.append(word)
-
-                hypothesis.transcript = " ".join(transcript)
-
-            if names:
-                # Count Name Frequency and Adjust Hypothesis Confidence
-                names = Counter(names)
-                max_freq = max(names.values())
-
-                for hypothesis in hypotheses:
-                    for name in names.keys():
-                        if name in hypothesis.transcript:
-                            hypothesis.confidence *= float(names[name]) / float(max_freq)
-
-        return hypotheses
-
-    @staticmethod
-    def _get_closest_name(word, names, max_name_distance=2):
-        # type: (str, List[str], int) -> str
-        if word[0].isupper() and names:
-            name, distance = sorted([(name, edit_distance(name, word)) for name in names], key=lambda key: key[1])[0]
-
-            if distance <= max_name_distance:
-                return name
 
     def _tokenize(self, transcript):
         """

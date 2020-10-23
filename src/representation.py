@@ -5,8 +5,7 @@ from typing import List, Optional
 
 from nltk.stem import WordNetLemmatizer
 
-from pepper.brain.utils.constants import NOT_TO_MENTION_TYPES
-from pepper.brain.utils.helper_functions import hash_claim_id, is_proper_noun
+from utils import hash_claim_id, is_proper_noun, NOT_TO_MENTION_TYPES
 
 
 class RDFBase(object):
@@ -181,7 +180,8 @@ class Predicate(RDFBase):
 
         subject_label = subject.label if subject is not None and subject.label not in ['', Literal('')] else (
             subject.types if subject is not None else '?')
-        complement_label = complement.label if complement is not None and complement.label not in ['', Literal('')] else (
+        complement_label = complement.label if complement is not None and complement.label not in ['',
+                                                                                                   Literal('')] else (
             complement.types if complement is not None else '?')
 
         if format == 'triple':
@@ -208,7 +208,6 @@ class Predicate(RDFBase):
         -------
 
         """
-        # TODO: Copied from language.generation.phrasing, because of circular dependency issues...
         # TODO revise by Lenka
         new_predicate = ''
         if format == 'triple':
@@ -301,16 +300,18 @@ class Triple(object):
         # type: () -> str
         return self._complement.types_names if self._complement is not None else None
 
-    # TODO not good practice and not used, might think of deleting three setters below
-    def set_subject(self, subject):
+    @subject.setter
+    def subject(self, subject):
         # type: (Entity) -> ()
         self._subject = subject
 
-    def set_predicate(self, predicate):
+    @predicate.setter
+    def predicate(self, predicate):
         # type: (Predicate) -> ()
         self._predicate = predicate
 
-    def set_complement(self, complement):
+    @complement.setter
+    def complement(self, complement):
         # type: (Entity) -> ()
         self._complement = complement
 
