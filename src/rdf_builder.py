@@ -18,71 +18,69 @@ class RdfBuilder(object):
         self._log = logger.getChild(self.__class__.__name__)
         self._log.debug("Booted")
 
-        # self._define_namespaces()
-        # self._bind_namespaces()
-        self.define_named_graphs()
+        self._define_namespaces()
 
     ########## setting up connection ##########
     def _define_namespaces(self):
-            """
-            Define namespaces for different layers (ontology/vocab and resource). Assign them to self
-            :return:
-            """
-            # Namespaces for the instance layer
-            instance_vocab = 'http://cltl.nl/leolani/n2mu/'
-            self.namespaces['N2MU'] = Namespace(instance_vocab)
-            instance_resource = 'http://cltl.nl/leolani/world/'
-            self.namespaces['LW'] = Namespace(instance_resource)
+        """
+        Define namespaces for different layers (ontology/vocab and resource). Assign them to self
+        :return:
+        """
+        # Namespaces for the instance layer
+        instance_vocab = 'http://cltl.nl/leolani/n2mu/'
+        self.namespaces['N2MU'] = Namespace(instance_vocab)
+        instance_resource = 'http://cltl.nl/leolani/world/'
+        self.namespaces['LW'] = Namespace(instance_resource)
 
-            # Namespaces for the mention layer
-            mention_vocab = 'http://groundedannotationframework.org/gaf#'
-            self.namespaces['GAF'] = Namespace(mention_vocab)
-            mention_resource = 'http://cltl.nl/leolani/talk/'
-            self.namespaces['LTa'] = Namespace(mention_resource)
+        # Namespaces for the mention layer
+        mention_vocab = 'http://groundedannotationframework.org/gaf#'
+        self.namespaces['GAF'] = Namespace(mention_vocab)
+        mention_resource = 'http://cltl.nl/leolani/talk/'
+        self.namespaces['LTa'] = Namespace(mention_resource)
 
-            # Namespaces for the attribution layer
-            attribution_vocab = 'http://groundedannotationframework.org/grasp#'
-            self.namespaces['GRASP'] = Namespace(attribution_vocab)
-            factuality_vocab = 'http://groundedannotationframework.org/grasp/factuality#'
-            self.namespaces['GRASPf'] = Namespace(factuality_vocab)
-            sentiment_vocab = 'http://groundedannotationframework.org/grasp/sentiment#'
-            self.namespaces['GRASPs'] = Namespace(sentiment_vocab)
-            emotion_vocab = 'http://groundedannotationframework.org/grasp/emotion#'
-            self.namespaces['GRASPe'] = Namespace(emotion_vocab)
-            attribution_resource_friends = 'http://cltl.nl/leolani/friends/'
-            self.namespaces['LF'] = Namespace(attribution_resource_friends)
-            attribution_resource_inputs = 'http://cltl.nl/leolani/inputs/'
-            self.namespaces['LI'] = Namespace(attribution_resource_inputs)
+        # Namespaces for the attribution layer
+        attribution_vocab = 'http://groundedannotationframework.org/grasp#'
+        self.namespaces['GRASP'] = Namespace(attribution_vocab)
+        factuality_vocab = 'http://groundedannotationframework.org/grasp/factuality#'
+        self.namespaces['GRASPf'] = Namespace(factuality_vocab)
+        sentiment_vocab = 'http://groundedannotationframework.org/grasp/sentiment#'
+        self.namespaces['GRASPs'] = Namespace(sentiment_vocab)
+        emotion_vocab = 'http://groundedannotationframework.org/grasp/emotion#'
+        self.namespaces['GRASPe'] = Namespace(emotion_vocab)
+        attribution_resource_friends = 'http://cltl.nl/leolani/friends/'
+        self.namespaces['LF'] = Namespace(attribution_resource_friends)
+        attribution_resource_inputs = 'http://cltl.nl/leolani/inputs/'
+        self.namespaces['LI'] = Namespace(attribution_resource_inputs)
 
-            # Namespaces for the temporal layer-ish
-            context_vocab = 'http://cltl.nl/episodicawareness/'
-            self.namespaces['EPS'] = Namespace(context_vocab)
-            self.namespaces['LC'] = Namespace('http://cltl.nl/leolani/context/')
+        # Namespaces for the temporal layer-ish
+        context_vocab = 'http://cltl.nl/episodicawareness/'
+        self.namespaces['EPS'] = Namespace(context_vocab)
+        self.namespaces['LC'] = Namespace('http://cltl.nl/leolani/context/')
 
-            # The namespaces of external ontologies
-            skos = 'http://www.w3.org/2004/02/skos/core#'
-            self.namespaces['SKOS'] = Namespace(skos)
+        # The namespaces of external ontologies
+        skos = 'http://www.w3.org/2004/02/skos/core#'
+        self.namespaces['SKOS'] = Namespace(skos)
 
-            prov = 'http://www.w3.org/ns/prov#'
-            self.namespaces['PROV'] = Namespace(prov)
+        prov = 'http://www.w3.org/ns/prov#'
+        self.namespaces['PROV'] = Namespace(prov)
 
-            sem = 'http://semanticweb.cs.vu.nl/2009/11/sem/'
-            self.namespaces['SEM'] = Namespace(sem)
+        sem = 'http://semanticweb.cs.vu.nl/2009/11/sem/'
+        self.namespaces['SEM'] = Namespace(sem)
 
-            time = 'http://www.w3.org/TR/owl-time/#'
-            self.namespaces['TIME'] = Namespace(time)
+        time = 'http://www.w3.org/TR/owl-time/#'
+        self.namespaces['TIME'] = Namespace(time)
 
-            xml = 'https://www.w3.org/TR/xmlschema-2/#'
-            self.namespaces['XML'] = Namespace(xml)
+        xml = 'https://www.w3.org/TR/xmlschema-2/#'
+        self.namespaces['XML'] = Namespace(xml)
 
-            wd = 'http://www.wikidata.org/entity/'
-            self.namespaces['WD'] = Namespace(wd)
+        wd = 'http://www.wikidata.org/entity/'
+        self.namespaces['WD'] = Namespace(wd)
 
-            wdt = 'http://www.wikidata.org/prop/direct/'
-            self.namespaces['WDT'] = Namespace(wdt)
+        wdt = 'http://www.wikidata.org/prop/direct/'
+        self.namespaces['WDT'] = Namespace(wdt)
 
-            wikibase = 'http://wikiba.se/ontology#'
-            self.namespaces['wikibase'] = Namespace(wikibase)
+        wikibase = 'http://wikiba.se/ontology#'
+        self.namespaces['wikibase'] = Namespace(wikibase)
 
     ########## basic constructors ##########
 

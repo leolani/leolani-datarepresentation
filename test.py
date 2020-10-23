@@ -37,24 +37,17 @@ def transform_capsule(capsule):
 
 
 if __name__ == "__main__":
-
     capsule_knows = {
-        "utterance": "Thomas knows piek",
-        "subject": {
-            "label": "thomas",
-            "type": "person"
-        },
-        "predicate": {
-            "type": "knows"
-        },
-        "object": {
-            "label": "piek",
-            "type": "person"
-        },
-        "author": "tae",
+        "utterance": "I think Lenka is from Serbia",
+        "subject": {"label": "lenka", "type": "person"},
+        "predicate": {"type": "be-from"},
+        "object": {"label": "serbia", "type": "location"},
+        "perspective": {"certainty": 0.5, "polarity": 1, "sentiment": 0},
+        "author": "piek",
+        "chat": 1,
         "turn": 1,
         "position": "0-25",
-        "date": date(2019, 1, 24)
+        "date": date(2018, 3, 19)
     }
 
     utterance = transform_capsule(capsule_knows)

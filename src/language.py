@@ -439,7 +439,7 @@ class Utterance(object):
         self._chat_speaker = casefold_text(self.chat_speaker, format)
 
     def _choose_hypothesis(self, hypotheses):
-        return sorted(self._patch_names(hypotheses), key=lambda hypothesis: hypothesis.confidence, reverse=True)[0]
+        return sorted(hypotheses, key=lambda hypothesis: hypothesis.confidence, reverse=True)[0]
 
     def _tokenize(self, transcript):
         """
